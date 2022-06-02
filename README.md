@@ -38,3 +38,6 @@ Compare, return, done.
         // else
         // loser
         // display output and tell winner.
+
+### REFLECTION ###
+Since I have experience with python, this project was relatively straightforward, just learning the differences between variables and running unoptimized code was interesting. I'm disappointed that I couldn't figure out why the addEventListener function wouldn't work, but I was spending too much time on it and therefore went with the simpler (although not as elegant) solution.

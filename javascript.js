@@ -24,11 +24,11 @@ function playRound (playerSelection, computerSelection) {
     } else if (playerSelection.startsWith("r") && computerSelection.startsWith("s")) {
         return "winner"
     } else if (playerSelection.startsWith("p") && computerSelection.startsWith("r")) {
-    return "winner"
+        return "winner"
     }  else if (playerSelection.startsWith("s") && computerSelection.startsWith("p")) {
-    return "winner"
+        return "winner"
     }  else {
-    return "loser"
+        return "loser"
     }
 
 }
@@ -70,7 +70,7 @@ function game() {
     }
 }
 //Tried to add a button to start the game, couldn't get it to work
-window.onload=function(){
-    const button = document.getElementById("button");
-    button.addEventListener("click", game());
-}
+// window.onload=function(){
+//     const button = document.getElementById("button");
+//     button.addEventListener("click", game());
+// }
