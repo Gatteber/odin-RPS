@@ -3,6 +3,23 @@ const gameStart = document.querySelector('.start-btn');
 gameStart.addEventListener("click", beginGame, { once: true });
 
 
+//Fetch random CPU input
+function getCpuInput (max, min) {
+    return Math.floor(Math.random() * (max - min) + min);
+}
+//Take input and convert to RPS
+function computerPlay () {
+    let cpuActual = getCpuInput(1, 4);
+    if (cpuActual === 1) {
+        return "rock";
+    } else if (cpuActual === 2) {
+        return "paper";
+    } else {
+        return "scissors";
+    }
+}
+
+
 function beginGame () {
     const container = document.querySelector('.rps-box');
     const rockBtn = document.createElement('button');
@@ -41,9 +58,9 @@ function beginGame () {
     scoreBoxPlayer.textContent = "Player Score: 0";
     scoreBoxPlayer.classList.add ('score-child');
     scoreBoxCpu.textContent = "CPU Score: 0";
-    scoreBoxCpu.classList.add ('score-child'); //score box
+    scoreBoxCpu.classList.add ('score-child'); 
     scoreBoxTie.textContent = "Tie Score: 0";
-    scoreBoxTie.classList.add('score-child');
+    scoreBoxTie.classList.add('score-child'); //score box
     scoreContainer.appendChild(scoreBoxPlayer);
     scoreContainer.appendChild(scoreBoxCpu);
     scoreContainer.appendChild(scoreBoxTie);
@@ -51,9 +68,9 @@ function beginGame () {
 
     const removeStart = document.querySelector('.start-btn');
     removeStart.parentNode.removeChild(removeStart);//remove start button
-    console.log("Game prepared");
+    //console.log("Game prepared");
 
-    //play
+    //gameplay loop
     const playerRock = document.querySelector('.rps-rock');
     playerRock.addEventListener("click", () => {
         playerSelection = "rock";
@@ -75,113 +92,72 @@ function beginGame () {
 
 
 
-        //Comparison operation
-function playRound (playerSelection, computerSelection) {
-    if (playerSelection == computerSelection) {
-        tieUpdate = tieScore++;
-        scoreBoxTie.innerHTML = "Tie Score: " + tieUpdate;
-        checkWinner();
-        //return "tie";
-    } else if (playerSelection.startsWith("r") && computerSelection.startsWith("s")) {
-        playerUpdate = playerScore++;
-        scoreBoxPlayer.innerHTML = "Player Score: " + playerUpdate;
-        checkWinner();       
-        //return "winner"
-    } else if (playerSelection.startsWith("p") && computerSelection.startsWith("r")) {
-        playerUpdate = playerScore++;
-        scoreBoxPlayer.innerHTML = "Player Score: " + playerUpdate;
-        checkWinner();
-        //return "winner"
-    }  else if (playerSelection.startsWith("s") && computerSelection.startsWith("p")) {
-        playerUpdate = playerScore++;
-        scoreBoxPlayer.innerHTML = "Player Score: " + playerUpdate;
-        checkWinner();
-        //return "winner"
-    }  else {
-        cpuUpdate = cpuScore++;
-        scoreBoxCpu.innerHTML = "CPU Score: " + cpuUpdate;
-        checkWinner();
-        //return "loser"
+    //Comparison operation
+    function playRound (playerSelection, computerSelection) {
+        if (playerSelection == computerSelection) {//tie
+            tieUpdate = tieScore++;
+            scoreBoxTie.innerHTML = "Tie Score: " + tieUpdate;
+            checkWinner();
+        } else if (playerSelection.startsWith("r") && computerSelection.startsWith("s")) {//winner
+            playerUpdate = playerScore++;
+            scoreBoxPlayer.innerHTML = "Player Score: " + playerUpdate;
+            checkWinner();       
+        } else if (playerSelection.startsWith("p") && computerSelection.startsWith("r")) {//winner
+            playerUpdate = playerScore++;
+            scoreBoxPlayer.innerHTML = "Player Score: " + playerUpdate;
+            checkWinner();
+        }  else if (playerSelection.startsWith("s") && computerSelection.startsWith("p")) {//winner
+            playerUpdate = playerScore++;
+            scoreBoxPlayer.innerHTML = "Player Score: " + playerUpdate;
+            checkWinner();
+        }  else {//loser
+            cpuUpdate = cpuScore++;
+            scoreBoxCpu.innerHTML = "CPU Score: " + cpuUpdate;
+            checkWinner();
+        }
     }
-}
-function checkWinner () {
-    if (playerUpdate == 5) {//winner;
-        //gameCleanup();
-        return "winner!";
-    } else if (cpuUpdate == 5) {
-        gameCleanup();
-        return "Loser!!";
-    } else if (tieUpdate == 5) {
-        gameCleanup();
-        return "Tie Master!!";
+    function checkWinner () {
+        if (playerUpdate == 5) {//winner;
+            gameCleanup();
+            gameWinner();
+        } else if (cpuUpdate == 5) {//loser
+            gameCleanup();
+            gameLoser();
+        } else if (tieUpdate == 5) {//tie
+            gameCleanup();
+            gameTie();
+        }
     }
-}
 
-function gameCleanup () {
-    console.log(checkWinner());
-    const removeScore = document.querySelector('.score-box');
-    removeScore.parentNode.removeChild(removeScore);//remove score box
-    const removeButtons = document.querySelector('.rps-box');
-    removeButtons.parentNode.removeChild(removeButtons);//remove buttons
-}
-
-}
-//     game();
-//     function game () {
-//         for (let i = 0; i <5; i++) {
-//             let computerSelection = computerPlay();
-//             let playerSelection = choose();
-//             console.log(playRound(playerSelection, computerSelection));
-//         }
-//     };
-
-// }
-
-
-
-//Fetching random CPU input
-function getCpuInput (max, min) {
-    return Math.floor(Math.random() * (max - min) + min);
-}
-//Take input and convert to RPS
-function computerPlay () {
-    let cpuActual = getCpuInput(1, 4);
-    //console.log(cpuActual);
-    if (cpuActual === 1) {
-    //    console.log("rock");
-    return "rock";
-    } else if (cpuActual === 2) {
-    //    console.log("paper");
-        return "paper";
-    } else {
-    //    console.log("scissors");
-        return "scissors";
+    function gameCleanup () {
+        const removeScore = document.querySelector('.score-box');
+        removeScore.parentNode.removeChild(removeScore);//remove score box
+        const removeButtons = document.querySelector('.rps-box');
+        removeButtons.parentNode.removeChild(removeButtons);//remove buttons
     }
+
+    function gameWinner() {
+        const resultBox = document.querySelector('.result-box');
+        const resultText = document.createElement('div');
+        resultText.classList.add ('result-child');
+        resultText.textContent = ("Congratulations, you are the winner! Thank you for playing!");
+        resultBox.appendChild(resultText);
+    }
+
+    function gameLoser() {
+        const resultBox = document.querySelector('.result-box');
+        const resultText = document.createElement('div');
+        resultText.classList.add ('result-child');
+        resultText.textContent = ("Sorry, you lose! Thank you for playing!");
+        resultBox.appendChild(resultText);
+    }
+
+    function gameTie() {
+        const resultBox = document.querySelector('.result-box');
+        const resultText = document.createElement('div');
+        resultText.classList.add ('result-child');
+        resultText.textContent = ("MEDIOCRE! IT'S A TIE!!! Thank you for playing!");
+        resultBox.appendChild(resultText);
+    }
+
 }
-
-
-// function playerConversion () {
-//     if ()
-
-// }
-
-// function game () {
-//     //add listeners for each button
-//     const playerRock = document.querySelector('.rock-btn');
-//     playerRock.addEventListener("click", function(e) {
-//         console.log(e);
-//     }) 
-
-//     };
-// window.addEventListener('DOMContentLoaded', (event) => {
-//     console.log("DOM Loaded");
-//     const playerRock = document.querySelector('.rps-rock');
-//     playerRock.addEventListener("click", (event) => {
-//         console.log("clicked rock!");
-//     } )
-// })
-
-
-
-
-

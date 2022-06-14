@@ -1,48 +1,6 @@
 # odin-RPS
 Rock Paper Scissors Assignment in JS
 
-
-Fetch the CPU Input (Done)
-Cpu Input -> return rock, paper, scissors
-Start game loop
-Ask for user input
-Compare, return, done.
-
-        //Approaching the RPS problem.
-        //Play 1 game
-        //Play 5 rounds
-        //Need CPU input (random)
-        //Need User input
-        //compare and display results
-
-        //Start by 1 round
-        //pick a random input using math.random and math.floor
-        //convert the int to lower(rock (1), paper(2), scissors(3))
-        // Rock -> Paper
-        // Rock -> Scissors       +
-        // Rock -> Rock           +
-        // Paper -> Scissors
-        // Paper -> Paper         +
-        // Scissors -> Scissors   +
-        // Paper -> Rock          +
-        // Scissors -> Paper      +
-        // Scissors -> Rock
-        // p, r, s
-        // if u.inp = cpu.inp : tie
-        // if inp1 = r and inp2 = s
-        // winner
-        // if inp.1 = p and inp2 = r
-        // winner
-        // if inp.1 = s and inp2 = p
-        // winner
-        // else
-        // loser
-        // display output and tell winner.
-
-### REFLECTION ###
-Since I have experience with python, this project was relatively straightforward, just learning the differences between variables and running unoptimized code was interesting. I'm disappointed that I couldn't figure out why the addEventListener function wouldn't work, but I was spending too much time on it and therefore went with the simpler (although not as elegant) solution.
-
-
 ### Part 2 - DOM Manipulation ###
 Create 3 Buttons, Rock, Paper, and Scissors. //done
 add an event that calls playround function
@@ -59,10 +17,15 @@ display the running score and announce the winner of the game at 5 points
 
 3.) add a running tally that keeps track, maybe a reset function?
 
-game is started
-player selects a button
-comparison
-determine winner, update score
-...
-after 5 rounds, if comparison for winner or loser
-display winner/loser.
+### JS Reflection ###
+This was definitely an adventure. JS handles much, much differently than I was expecting compared to Python, and certain quirks were much more difficult to accept than I initially thought. I really wanted to add a replay button function (maybe I will come back and do it later), but for now, I'm satisfied with completing the assignment.
+
+CSS reflection will be added when I finish.
+
+Things to improve upon in the future:
+
+1.) I really want to learn how to add an empty div element into the document body. I couldn't quite figure out how to make it work without starting with empty divs preloaded into the HTML. Maybe that is just a quirk of JS that can't be changed?
+
+2.) Adding user input with eventListener functionality is vastly different from what I'm used to doing in Python, it really challenged the way I thought about coding. I'm curious if it would be possible to make some sort of for loop with user input, but it seems somewhat lackluster.
+
+3.) I'm quite disappointed I was unable to figure out how to get the results of the game and make a single "gameCleanup()" function to clean up the game and display the winner all within a single function (or at least, I wanted to only have to write one function for the result). However, I just couldn't figure out a way to get the results. My solution is definitely not very elegant, even if it works.
