@@ -26,14 +26,28 @@ function beginGame () {
     const scoreContainer = document.querySelector('.score-box');
     const scoreBoxPlayer = document.createElement('div');
     const scoreBoxCpu = document.createElement('div');
+    const scoreBoxTie = document.createElement('div');
     document.body.appendChild(scoreBoxPlayer);
     document.body.appendChild(scoreBoxCpu);
+    document.body.appendChild(scoreBoxTie);
+
+    let playerScore = 1;
+    let cpuScore = 1;
+    let tieScore = 1;
+    let playerUpdate = 0;
+    let cpuUpdate = 0;
+    let tieUpdate = 0;
+
     scoreBoxPlayer.textContent = "Player Score: 0";
     scoreBoxPlayer.classList.add ('score-child');
     scoreBoxCpu.textContent = "CPU Score: 0";
     scoreBoxCpu.classList.add ('score-child'); //score box
+    scoreBoxTie.textContent = "Tie Score: 0";
+    scoreBoxTie.classList.add('score-child');
     scoreContainer.appendChild(scoreBoxPlayer);
     scoreContainer.appendChild(scoreBoxCpu);
+    scoreContainer.appendChild(scoreBoxTie);
+
 
     const removeStart = document.querySelector('.start-btn');
     removeStart.parentNode.removeChild(removeStart);//remove start button
@@ -42,24 +56,76 @@ function beginGame () {
     //play
     const playerRock = document.querySelector('.rps-rock');
     playerRock.addEventListener("click", () => {
-        playerSelection = "r";
+        playerSelection = "rock";
         computerSelection = computerPlay();
-        console.log(playRound(playerSelection, computerSelection));
-        //scoreBoxPlayer.innerHTML = "1";
+        playRound(playerSelection, computerSelection);
     });
     const playerPaper = document.querySelector('.rps-paper');
     playerPaper.addEventListener("click", () => {
-        playerSelection = "p";
+        playerSelection = "paper";
         computerSelection = computerPlay();
-        console.log(playRound(playerSelection,computerSelection));
+        playRound(playerSelection, computerSelection);
     });
         const playerScissors = document.querySelector('.rps-scissors');
     playerScissors.addEventListener("click", () => {
-        playerSelection = "s";
+        playerSelection = "scissors";
         computerSelection = computerPlay();
-        console.log(playRound(playerSelection, computerSelection));
+        playRound(playerSelection, computerSelection);
     });
+
+
+
+        //Comparison operation
+function playRound (playerSelection, computerSelection) {
+    if (playerSelection == computerSelection) {
+        tieUpdate = tieScore++;
+        scoreBoxTie.innerHTML = "Tie Score: " + tieUpdate;
+        checkWinner();
+        //return "tie";
+    } else if (playerSelection.startsWith("r") && computerSelection.startsWith("s")) {
+        playerUpdate = playerScore++;
+        scoreBoxPlayer.innerHTML = "Player Score: " + playerUpdate;
+        checkWinner();       
+        //return "winner"
+    } else if (playerSelection.startsWith("p") && computerSelection.startsWith("r")) {
+        playerUpdate = playerScore++;
+        scoreBoxPlayer.innerHTML = "Player Score: " + playerUpdate;
+        checkWinner();
+        //return "winner"
+    }  else if (playerSelection.startsWith("s") && computerSelection.startsWith("p")) {
+        playerUpdate = playerScore++;
+        scoreBoxPlayer.innerHTML = "Player Score: " + playerUpdate;
+        checkWinner();
+        //return "winner"
+    }  else {
+        cpuUpdate = cpuScore++;
+        scoreBoxCpu.innerHTML = "CPU Score: " + cpuUpdate;
+        checkWinner();
+        //return "loser"
     }
+}
+function checkWinner () {
+    if (playerUpdate == 5) {//winner;
+        //gameCleanup();
+        return "winner!";
+    } else if (cpuUpdate == 5) {
+        gameCleanup();
+        return "Loser!!";
+    } else if (tieUpdate == 5) {
+        gameCleanup();
+        return "Tie Master!!";
+    }
+}
+
+function gameCleanup () {
+    console.log(checkWinner());
+    const removeScore = document.querySelector('.score-box');
+    removeScore.parentNode.removeChild(removeScore);//remove score box
+    const removeButtons = document.querySelector('.rps-box');
+    removeButtons.parentNode.removeChild(removeButtons);//remove buttons
+}
+
+}
 //     game();
 //     function game () {
 //         for (let i = 0; i <5; i++) {
@@ -92,21 +158,7 @@ function computerPlay () {
         return "scissors";
     }
 }
-//Comparison operation
-function playRound (playerSelection, computerSelection) {
-    if (playerSelection == computerSelection) {
-        return "tie"
-    } else if (playerSelection.startsWith("r") && computerSelection.startsWith("s")) {
-        return "winner"
-    } else if (playerSelection.startsWith("p") && computerSelection.startsWith("r")) {
-        return "winner"
-    }  else if (playerSelection.startsWith("s") && computerSelection.startsWith("p")) {
-        return "winner"
-    }  else {
-        return "loser"
-    }
 
-}
 
 // function playerConversion () {
 //     if ()
