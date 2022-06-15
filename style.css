@@ -2,8 +2,62 @@ body {
     background-color: black;
 }
 
-.header {
+button {
     background-color: white;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border: 1px solid white;
+    border-radius: 8px;
+    transition-duration: 0.5s;
+}
+
+button:hover {
+    background-color: black;
+    color: white;
+}
+
+.header-box {
+    color: white;
+    font-size: 64px;
+    /*animation: ease-in-out 10s linear infinite;*/
+}
+
+.header-text {
+    display: flex;
+    justify-content: flex-start;
+}
+.game-box {
+    display: flex;
+    align-content: center;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.rps-box {
+    display: flex;
+    gap: 50px;
+    padding-bottom: 10px;
+}
+
+.score-box {
+    display: flex;
+    gap: 30px;
+}
+
+.lower-header-box {
+    color: white;
+    font-size: 64px;
+}
+
+.lower-header {
+    display: flex;
+    justify-content: flex-end;
 }
 
 .score-child {
